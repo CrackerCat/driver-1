@@ -9,6 +9,8 @@ a simple pasted windows kernel driver that does stuff:
    
    . QueryPagingInfo (gets what paging mode the system is on)
    
+   . QueryPageTableInfo (gets pml4e, pdpte, pde, pte for VA) 
+   
    . gets module information from kldr 
    
 Credits: 
