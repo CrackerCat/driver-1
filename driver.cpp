@@ -1157,6 +1157,11 @@ ULONG64 GetPhysicalAddress(ULONG64 VirtualAddress, HANDLE Pid)
 	const auto PtePhysc = reinterpret_cast<PPTE>((ULONG64)Pde.PageFrameNumber << PAGE_SHIFT) + VirtualAddr.PtIndex;
 
 	const auto Pte = ReadPhysicalMemory<PTE>(PtePhysc);
+	
+	if (Pte.Value == NULL || Pte.Present)
+	{
+		return 0;
+	}
 
 	return (Pte.PageFrameNumber << 12) + VirtualAddr.Offset4Kb;
 }
