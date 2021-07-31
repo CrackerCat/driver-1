@@ -3,7 +3,7 @@ a simple pasted windows kernel driver that does stuff:
       
    . locates MiFillPteHierarchy by sigcanning it    
   
-   . VA To PA (by manually walking pagetables, another way I used is to directly call MiFillPteHierarchy) 
+   . VA To PA (by manually walking pagetables, another way I used is to directly call MiFillPteHierarchy instead of walking page tables my self) 
    
    . GetModuleBase (doesn't use KeStackAttachProcess instead it just replaces the current cr3 value with the process cr3) 
    
