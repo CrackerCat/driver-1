@@ -814,17 +814,17 @@ ULONG64 GetPhysicalAddress(PVOID VirtualAddress)
 
 	if (PteHierarchy.Pdpte->PageSize)
 	{
-		return (PteHierarchy.Pdpte->PageFrameNumber << 12) + VirtualAddrr.Offset1Gb;
+		return (PteHierarchy.Pdpte->PageFrameNumber << PAGE_SHIFT) + VirtualAddrr.Offset1Gb;
 	}
 
 	else if (PteHierarchy.Pde->PageSize)
 	{
-		return (PteHierarchy.Pde->PageFrameNumber << 12) + VirtualAddrr.Offset2mb;
+		return (PteHierarchy.Pde->PageFrameNumber << PAGE_SHIFT) + VirtualAddrr.Offset2mb;
 	}
 
 	else
 	{
-		return (PteHierarchy.Pte->PageFrameNumber << 12) + VirtualAddrr.Offset4Kb;
+		return (PteHierarchy.Pte->PageFrameNumber << PAGE_SHIFT) + VirtualAddrr.Offset4Kb;
 	}
 }
 
