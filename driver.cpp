@@ -998,17 +998,6 @@ auto ReadKernelMemory(ULONG64 Address) -> T
 	return Buffer;
 }
 
-
-template <typename T>
-auto ReadVirtualMemory(HANDLE Pid, ULONG64 Address, SIZE_T& BytesReaden) -> T
-{
-	T Buffer = { 0 };
-
-	ULONG64 PhysicalAddress = GetPhysicalAddress(Address, Pid);
-
-	return ReadPhysicalMemory<T>(PhysicalAddress, &Buffer, sizeof(T), BytesReaden)
-}
-
 /*	
   @ Not used but maybe useful 
 
