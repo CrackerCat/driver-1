@@ -924,7 +924,7 @@ VOID QueryPagingInfo(VOID)
 {
 	CR0 Cr0        =	{ 0 };
 	CR4 Cr4        =	{ 0 };
-	IA32_EFER Efer =    { 0 };
+	IA32_EFER Efer =        { 0 };
 
 	Cr0.Value = __readcr0();
 
@@ -992,7 +992,7 @@ auto ReadKernelMemory(ULONG64 Address) -> T
 
 	if (memcpy((PVOID)&Buffer, (PVOID)Address, sizeof(T)) == nullptr)
 	{
-		return {};
+		return T();
 	}
 
 	return Buffer;
