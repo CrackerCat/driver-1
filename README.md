@@ -1,17 +1,18 @@
 # driver
 Functionalties: 
+----------------
 
-   . locates MiFillPteHierarchy by sigcanning it    
-  
-   . VA To PA (by manually walking pagetables, another way I used is to directly call MiFillPteHierarchy instead of walking page tables my self) 
-   
-   . GetModuleBase (doesn't use KeStackAttachProcess instead it just replaces the current cr3 value with the process cr3) 
-   
-   . QueryPagingInfo (gets what paging mode the system is on)
-   
-   . QueryPageTableInfo (gets pml4e, pdpte, pde, pte for VA) 
-   
-   . gets module information from kldr 
+      . locates MiFillPteHierarchy by sigcanning it    
+
+      . VA To PA (by manually walking pagetables, another way I used is to directly call MiFillPteHierarchy instead of walking page tables my self) 
+
+      . GetModuleBase (doesn't use KeStackAttachProcess instead it just replaces the current cr3 value with the process cr3) 
+
+      . QueryPagingInfo (gets what paging mode the system is on)
+
+      . QueryPageTableInfo (gets pml4e, pdpte, pde, pte for VA) 
+
+      . gets module information from kldr 
    
 Credits: 
          
