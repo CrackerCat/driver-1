@@ -826,8 +826,6 @@ ULONG64 GetPhysicalAddress(PVOID VirtualAddress)
 	{
 		return (PteHierarchy.Pte->PageFrameNumber << 12) + VirtualAddrr.Offset4Kb;
 	}
-
-	return 0;
 }
 
 
