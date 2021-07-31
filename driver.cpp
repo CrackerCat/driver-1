@@ -1158,7 +1158,7 @@ ULONG64 GetPhysicalAddress(ULONG64 VirtualAddress, HANDLE Pid)
 
 	const auto Pte = ReadPhysicalMemory<PTE>(PtePhysc);
 	
-	if (Pte.Value == NULL || Pte.Present)
+	if (Pte.Value == NULL || Pte.Present == NULL)
 	{
 		return 0;
 	}
