@@ -1086,6 +1086,8 @@ ULONG64 GetPhysicalAddress(ULONG64 VirtualAddress, HANDLE Pid)
 
 EXTERN_C PPEB PsGetProcessPeb(PEPROCESS Process);
 
+// idea: https://www.unknowncheats.me/forum/3073682-post6.html
+
 PVOID GetModuleBase(PEPROCESS Process, PCWSTR ModuleName)
 {
 	PVOID ModuleBase = nullptr;
@@ -1094,6 +1096,7 @@ PVOID GetModuleBase(PEPROCESS Process, PCWSTR ModuleName)
 	PPEB Peb = PsGetProcessPeb(Process);
 	PVOID DirBase = GetProcessCr3(ProcessId);
 	ULONG64 OldCr3 = __readcr3();
+	KIRQL Irql = 0;
 
 	if (Process == nullptr)
 	{
@@ -1101,6 +1104,7 @@ PVOID GetModuleBase(PEPROCESS Process, PCWSTR ModuleName)
 	}
 
 	RtlInitUnicodeString(&ModName, ModuleName);
+	Irql = KeRaiseIrqlToDpcLevel();
 	__writecr3((ULONG64)DirBase);
 
 	PPEB_LDR_DATA Ldr = Peb->Ldr;
@@ -1108,6 +1112,7 @@ PVOID GetModuleBase(PEPROCESS Process, PCWSTR ModuleName)
 	if (Ldr == nullptr)
 	{
 		__writecr3(OldCr3);
+		KeLowerIrql(Irql);
 		return nullptr;
 	}
 
@@ -1127,8 +1132,9 @@ PVOID GetModuleBase(PEPROCESS Process, PCWSTR ModuleName)
 		CurrentLdr = CurrentLdrEntry->InMemoryOrderLinks.Flink;
 
 	} while (Head != CurrentLdr);
-        
-        __writecr3(OldCr3);
+
+	__writecr3(OldCr3);
+	KeLowerIrql(Irql);
 	return ModuleBase; 
 }
 
