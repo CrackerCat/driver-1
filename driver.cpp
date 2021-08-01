@@ -1121,15 +1121,15 @@ PVOID GetModuleBase(PEPROCESS Process, PCWSTR ModuleName)
 		if (RtlEqualUnicodeString(&CurrentLdrEntry->BaseDllName, &ModName, true))
 		{
 			ModuleBase = CurrentLdrEntry->DllBase;
-			__writecr3(OldCr3);
-			return ModuleBase;
+			break;
 		}
 
 		CurrentLdr = CurrentLdrEntry->InMemoryOrderLinks.Flink;
 
 	} while (Head != CurrentLdr);
-
-	return nullptr; 
+        
+        __writecr3(OldCr3);
+	return ModuleBase; 
 }
 
 NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING RegistryPath)
